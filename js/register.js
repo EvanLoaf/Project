@@ -39,7 +39,7 @@ const randomMails = ['hermione@spew.org.ru', 'calvin@gross.club', 'sulu@starflee
 var number = null;
 
 function randName() {
-    number = Math.floor(Math.random()*9);
+    number = Math.floor(Math.random() * 9);
     return randomNames[number];
 }
 
@@ -75,7 +75,7 @@ body.appendChild(footer);
 
 // регулярное выражение для проверки пароля - минимум 1 цифра, 1 большая, 1 мал латинская буква, 8-20 симв
 function passwordRegCheck(value) {
-    if (/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,20}/.test(value)) 
+    if (/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,20}/.test(value))
         return true;
     return false;
 }
@@ -86,21 +86,31 @@ $.validator.addMethod('pw', passwordRegCheck);
 function mailRegCheck(value) {
     if (/^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/.test(value))
         return true;
-    return false; 
+    return false;
 }
 
 $.validator.addMethod('mailcheck', mailRegCheck);
 
-var debounce = {'nameTimer': null, 'mailTimer': null, 'passwordTimer': null}; // таймеры для debounce
+// смотрим чтобы такое имя было свободно
+var receivedData = false;
+function nameRegCheck(value) {
+    if (receivedData)
+        return false;
+    return true;
+}
+
+$.validator.addMethod('existingNameCheck', nameRegCheck);
+
+var debounce = { 'nameTimer': null, 'mailTimer': null, 'passwordTimer': null, 'ajaxTimer': null }; // таймеры для debounce
 
 var loadTimer = null; // prevents form from validating on load with autofocus
-$(window).on('load', function() { loadTimer = new Date() })
+$(window).on('load', function () { loadTimer = new Date() });
 
 $('#regForm').validate({
     errorClass: 'error-message',
     errorElement: 'div',
     onfocusout: false, // по дефолту проверка на onfocusout почему-то
-    onkeyup: function(element) {
+    onkeyup: function (element) {
 
         // Запуск валидации отдельных полей с чем-то вроде debounce
         if (loadTimer && Date.now() - loadTimer < 500) {
@@ -112,7 +122,25 @@ $('#regForm').validate({
                 clearTimeout(debounce.nameTimer);
                 debounce.nameTimer = null;
             }
-            debounce.nameTimer = setTimeout(function() {
+            // Запрос ajax c таймаутом меньше таймаута проверки, чтобы успеть получить данные => проверка на их основе
+            if (debounce.ajaxTimer) {
+                clearTimeout(debounce.ajaxTimer);
+                debounce.ajaxTimer = null;
+            }
+            debounce.ajaxTimer = setTimeout(function () {
+                $.ajax({
+                    url: 'http://fe.it-academy.by/AjaxStringStorage2.php',
+                    type: 'POST',
+                    cache: false,
+                    dataType: 'json',
+                    data: { f: "READ", n: element.value },
+                    success: nameSuccess
+                });
+                function nameSuccess(data) {
+                    receivedData = data.result;
+                }
+            }, 400);
+            debounce.nameTimer = setTimeout(function () {
                 $(element).valid();
                 if ($('#name').attr('aria-invalid') === 'false' && $('#email').attr('aria-invalid') === 'false' && $('#password').attr('aria-invalid') === 'false') {
                     console.log('yep');
@@ -126,7 +154,7 @@ $('#regForm').validate({
                 clearTimeout(debounce.emailTimer);
                 debounce.emailTimer = null;
             }
-            debounce.emailTimer = setTimeout(function() {
+            debounce.emailTimer = setTimeout(function () {
                 $(element).valid();
                 if ($('#name').attr('aria-invalid') === 'false' && $('#email').attr('aria-invalid') === 'false' && $('#password').attr('aria-invalid') === 'false') {
                     console.log('yep');
@@ -140,7 +168,7 @@ $('#regForm').validate({
                 clearTimeout(debounce.passwordTimer);
                 debounce.passwordTimer = null;
             }
-            debounce.passwordTimer = setTimeout(function() {
+            debounce.passwordTimer = setTimeout(function () {
                 $(element).valid();
                 if ($('#name').attr('aria-invalid') === 'false' && $('#email').attr('aria-invalid') === 'false' && $('#password').attr('aria-invalid') === 'false') {
                     console.log('yep');
@@ -153,7 +181,8 @@ $('#regForm').validate({
         name: {
             required: true,
             minlength: 4,
-            maxlength: 25
+            maxlength: 25,
+            existingNameCheck: true
         },
         email: {
             required: true,
@@ -168,7 +197,8 @@ $('#regForm').validate({
         name: {
             required: 'Придумайте себе псевдоним!',
             minlength: 'Вы ввели слишком короткое имя..',
-            maxlength: 'Вы ввели слишком длинное имя..'
+            maxlength: 'Вы ввели слишком длинное имя..',
+            existingNameCheck: 'Введенное вами имя уже занято!'
         },
         email: {
             required: 'С регистрацией, но без СМС',
@@ -181,13 +211,13 @@ $('#regForm').validate({
         }
     },
     // не дает повесить класс ошибки на инпут и может выключать кнопку при вводе неверной инфы
-    highlight: function(element) {
+    highlight: function (element) {
         if (!($('.sign-up-container input[type="button"]').attr('disabled'))) {
             $('.sign-up-container input[type="button"]').attr('disabled', '');
-        }        
+        }
     },
     // если некорректные поля исправлены, кнопка станет активной
-    unhighlight: function() {  
+    unhighlight: function () {
         if ($('#name').attr('aria-invalid') === 'false' && $('#email').attr('aria-invalid') === 'false' && $('#password').attr('aria-invalid') === 'false') {
             console.log('yep');
             $('.sign-up-container input[type="button"]').removeAttr('disabled');
@@ -197,10 +227,30 @@ $('#regForm').validate({
 
 function loginInfoReady() { // Проверка валидности полей при нажатии на кнопку регистрации
     if ($('#regForm').valid()) {
-        console.log('Можем писать данные в локалку или на сервер');
-        console.log(`Имя: ${$('.sign-up-container input[name="name"]').val()}\n    Мыло: ${$('.sign-up-container input[name="email"]').val()}\n        Пароль: ${$('.sign-up-container input[name="password"]').val()}`);
+        let credentials = { 'email': $('#email').val(), 'password': $('#password').val() };
+        //console.log(credentials);
+        //console.log('Можем писать данные в локалку или на сервер');
+        //console.log(`Имя: ${$('.sign-up-container input[name="name"]').val()}\n    Мыло: ${$('.sign-up-container input[name="email"]').val()}\n        Пароль: ${$('.sign-up-container input[name="password"]').val()}`);
+        $.ajax({
+            url: 'http://fe.it-academy.by/AjaxStringStorage2.php',
+            type: 'POST',
+            cache: false,
+            dataType: 'json',
+            data: { f: "INSERT", n: $('#name').val(), v: JSON.stringify(credentials) },
+            success: suc,
+            error: err
+        });
     }
 }
 $('.sign-up-container input[type="button"]').on('click', loginInfoReady); // $('#regForm') при нажатии кнопки
+
+function suc() {
+    console.log('krasiva, brat');
+}
+function err() {
+    console.log('govno, brat');
+}
+
+
 
 
