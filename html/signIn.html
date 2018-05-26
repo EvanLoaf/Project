@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="../style/signIn.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="../js/account.js"></script>
+    <title>Log in Remind</title>
+</head>
+
+<body>
+    <div class="signin-form">
+        <h1>Вход в Remind</h1>
+        <p>или
+            <a href="../html/register.html">создать аккаунт</a>
+        </p>
+        <form action="#" name="signinForm">
+            <div>
+                <label>Электронная почта
+                    <br>
+                    <input type="text" id="username" name="username" placeholder="e-mail">
+                </label>
+                <br>
+            </div>
+            <div>
+                <label>Пароль
+                    <br>
+                    <input type="password" id="password" name="password" placeholder="password">
+                </label>
+                <br>
+            </div>
+            <input type="submit" onClick="signIn();" value="Sign In">
+            <br>
+        </form>
+    </div>
+</body>
+
+</html>
