@@ -1,12 +1,27 @@
+html {
+    height: 100%;
+}
+
 body{
     margin: 0;
     background-image: url(../image/boardBackground.jpg);
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    background-size: cover;
+}
+
+.wrapper {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
 }
 
 .menu{
     background: #026AA7;
     position: relative;
     margin-bottom: 10px;
+    height: 67px;
 }
 
 .menu_logoWrapper{

@@ -75,7 +75,7 @@ body.appendChild(footer);
 
 // регулярное выражение для проверки пароля - минимум 1 цифра, 1 большая, 1 мал латинская буква, 8-20 симв
 function passwordRegCheck(value) {
-    if (/(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,20}/.test(value))
+    if (/(?!.*\W)(?!.*[_])(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,20}/.test(value))
         return true;
     return false;
 }
@@ -93,13 +93,22 @@ $.validator.addMethod('mailcheck', mailRegCheck);
 
 // смотрим чтобы такое имя было свободно
 var receivedData = false;
-function nameRegCheck(value) {
+function nameExistenceCheck(value) {
     if (receivedData)
         return false;
     return true;
 }
 
-$.validator.addMethod('existingNameCheck', nameRegCheck);
+$.validator.addMethod('existingNameCheck', nameExistenceCheck);
+
+//смотрим что имя состояло из только из латинских символов (бол и мал) и цифр
+function nameRegCheck(value) {
+    if (/(?!.*\W)(?!.*[_])[0-9a-zA-Z]/.test(value))
+        return true;
+    return false;
+}
+
+$.validator.addMethod('nameCheck', nameRegCheck);
 
 var debounce = { 'nameTimer': null, 'mailTimer': null, 'passwordTimer': null, 'ajaxTimer': null }; // таймеры для debounce
 
@@ -182,7 +191,8 @@ $('#regForm').validate({
             required: true,
             minlength: 4,
             maxlength: 25,
-            existingNameCheck: true
+            existingNameCheck: true,
+            nameCheck: true
         },
         email: {
             required: true,
@@ -198,7 +208,8 @@ $('#regForm').validate({
             required: 'Придумайте себе псевдоним!',
             minlength: 'Вы ввели слишком короткое имя..',
             maxlength: 'Вы ввели слишком длинное имя..',
-            existingNameCheck: 'Введенное вами имя уже занято!'
+            existingNameCheck: 'Введенное вами имя уже занято!',
+            nameCheck: 'Имя может состоять из латинских символов и цифр'
         },
         email: {
             required: 'С регистрацией, но без СМС',
@@ -250,6 +261,7 @@ function suc() {
 function err() {
     console.log('govno, brat');
 }
+
 
 
 

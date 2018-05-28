@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Remind</title>
+    <link rel="stylesheet" href="../style/board.css">
+    <link rel="stylesheet" href="../style/card.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link rel="shortcut icon" href="https://b.radikal.ru/b17/1805/bc/c0ef2250fd37.png" type="image/png">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="../js/jquery.tmpl.js"></script>    
+    
+    <script id="menuTemplate" type="text/x-jquery-tmpl"> 
+        <div class="menu"> 
+            <a class="menu_logoWrapper" href="../index.html">
+            <img class="menu_logo" src="https://a.radikal.ru/a09/1805/bc/f1f4fab40a9e.png"></a>
+        
+            <div class="menu_leftPart_wrapper">
+                <div class="menu_leftPart">
+                    <a class="leftPart_boardButton">Доски</a>
+                    <div class="inputWrapper">
+                        <input class="leftPart_input" type="text">
+                        <span class="leftPart_search_img">
+                            <img src="../image/Search_64px.png" alt="search">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="menu_rightPart_wrapper">
+                <div class="menu_rightPart">
+                    <a class="rightPart_userLink" href="#">.<img class="rightPart_img" src="../image/Plus Math_52px.png"></a>
+                    <a class="rightPart_userLink" href="#">.<img class="rightPart_img" src="../image/Info_48px.png"></a>
+                    <a class="rightPart_userLink" href="#">.<img class="rightPart_img" src="../image/Notification_48px.png"></a>
+                    <a class="rightPart_userLink_name" href="#">
+                        {{if username != ''}}
+                            ${username.slice(0,2).toUpperCase()}
+                        {{else}}
+                            RM
+                        {{/if}}
+                    </a>
+                </div>
+            </div>
+        </div>
+   
+        <div class="content">
+            <div class="stage1">
+                <p class="stage1_text">Добавить список...</p>
+            </div>
+       
+            <div class="stage2">
+                <input class="stage2_textinput" type="text" value="Добавить список...">
+                <input class="stage2_button" type="button" value="Сохранить">
+            </div>
+        </div>
+    </script>
+
+
+    <script id="cardTemplate" type="text/x-jquery-tmpl"> 
+        <div class="stage3">
+                <p class="stage3_header">
+                    {{if cardname != ''}} 
+                        ${cardname}
+                    {{/if}}
+                </p>
+                <div class="stage3_stageCard_text">
+                    <span>
+                        {{each info}}
+                            ${cardtask}
+                        {{/each}}
+                    </span>
+                </div>
+                <textarea class="stage3_textarea" style="display: none;"></textarea>
+                <input class="stage3_button" value="Добавить" onclick="addCard(event)" style="display: none;" type="button">
+                <p class="stage3_addCard" onclick="addCardMenu(event)" style="">Добавить карточку...</p>
+                <p class="stage3_menu_openButton" onclick="openMenu(event)">...</p>
+            </div>
+    </script>
+
+</head>
+<body>
+    <div class="wrapper" id="wrapper"></div>
+
+   
+
+    <script>
+
+        const userinfo = {  // объект для хранения данных о пользователе как сюда будут приходить с сервера данные о имени, пароле и т.д. я не знаю.
+            username: 'Anton',
+            password: 12345,
+            email: 'mail@mail.com',
+            cards: []  // массив в который будут заносится данные по карточкам из хэша cardInfoTemp
+        };
+        
+        var cardInfoTemp = {}; // временное хранилище для карточки
+        var taskInfoTemp; // временное хранилище для заданий из карточки
+        var stage3;
+        var stage3Menu;
+
+        $('#menuTemplate').tmpl(userinfo).appendTo('#wrapper'); // Userinfo - это объект с нашими данными.
+
+        $('.stage1').click(function(){ // Функция отвечающая за действие происходящее при нажатии на поле "Добавить список".
+            $('.stage2').show();
+            $(".stage2_textinput").focus().val("");
+            $('.stage1').hide();
+        })
+        
+        $(".stage2_button").click(function(){ // Функция отвечающая за действие происходящее при нажатии на кнопку "Сохранить". Создает карточку.
+            if($(".stage2_textinput").val()){
+            cardInfoTemp.cardname = $(".stage2_textinput").val(); // Имя карты помещается в cardInfoTemp
+            $('.stage2').hide();
+            $('.stage1').show();
+            stage3 = $('<div>').attr({'class': 'stage3'})
+                .append($('<p>').attr({'class':'stage3_header'}).html(cardInfoTemp.cardname))
+                .append($('<textarea>').attr({'class':'stage3_textarea'}))
+                .append($('<input>').attr({'type':'button', 'class':'stage3_button', 'value':'Добавить', 'onclick':'addCard(event)'}))
+                .append($('<p>').attr({'class':'stage3_addCard', 'onclick':'addCardMenu(event)'}).html('Добавить карточку...'))
+                .append($('<p>').attr({'class':'stage3_menu_openButton', 'onclick':'openMenu(event)'}).html('...'));
+            $(stage3).insertBefore('.stage1');
+            userinfo.cards.push(cardInfoTemp); // В userinfo.cards - под именем userinfo.cards[0] создается хэш с информацией о карточке. Создав новую карточку, ее имя будет соответсвенно userinfo.cards[1] и так далее до бесконечности. 
+            cardInfoTemp = {}; // Временное хранилище очищается для следующего использования.
+        } else{
+            $('.stage1').show();
+            $('.stage2').hide();
+        }
+        });
+        
+        function addCardMenu(e){ // Функция отвечающая за действие происходящее при нажатии на кнопку "Добавить карточку"
+            $(e.currentTarget).parent().children(".stage3_addCard").hide();
+            $(e.currentTarget).parent().children(".stage3_textarea").show().val("");
+            $(e.currentTarget).parent().children(".stage3_button").show();
+        }
+
+        function addCard(event){ // Функция отвечающая за действие происходящее при нажатии на кнопку "Добавить" в меню добавить карточку
+            taskInfoTemp = $(event.target.parentElement).children(".stage3_textarea").val();
+            $('<div>').attr({'class':'stage3_stageCard_text'}).append($('<span>').html(taskInfoTemp))
+                .insertAfter($(event.target.parentElement).children(".stage3_header"));
+            $(".stage3_textarea").hide();
+            $(".stage3_button").hide();
+            $(".stage3_addCard").show();
+            userinfo.cards[0].task = taskInfoTemp; //  Я не знаю как сохранять с новым названием каждый раз.....((( Напишу template, но это нужно будет придумать.
+            cardInfoTemp = {};
+        }
+
+        function openMenu(event){ // Функция отвечающая за действие происходящее при нажатии на кнопку "Бокового меню"
+            let cardButtonLeft = $(event.currentTarget).parent().children('.stage3_menu_openButton').offset().left;
+            let cardParentTop = $(event.currentTarget).parent().offset().top;
+            stage3Menu = $('<div>').attr({'class':'stage3Menu'})
+                .append($('<p>').attr({'class':'stage3Menu_header'}).html('Действия со списком'))
+                .append($('<p>').attr({'class':'stage3Menu_closeButton'}).html('x'))
+                .append($('<hr>').attr({'class':'stage3Menu_line'}))
+                .append($('<p>').attr({'class':'stage3Menu_card'}).html('Добавить цвет...'))
+                .append($('<p>').attr({'class':'stage3Menu_card'}).html('Контейнер для цветов...')) 
+                .append($('<p>').attr({'class':'stage3Menu_card'}).html('Назначить уведомление...'))
+                .append($('<p>').attr({'class':'stage3Menu_card'}).html('Удалить...'))
+                .css('left', cardButtonLeft + 'px')
+                .css('top', cardParentTop + 20 + 'px');
+            $('.content').append(stage3Menu);
+
+            $(".stage3Menu_closeButton").click(function(event){ // Функция закрывающая "Боковое меню"
+                $(event.target.parentElement).remove();
+            });
+        };
+        
+    </script>
+</body>
+</html>
+
