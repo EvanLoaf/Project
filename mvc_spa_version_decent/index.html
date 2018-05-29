@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Remind</title>
+    <link rel="stylesheet" href="style/main.css">
+    <link rel="stylesheet" href="style/signIn.css">
+    <link rel="stylesheet" href="style/register.css">
+    <link rel="stylesheet" href="style/board.css">
+    <link rel="stylesheet" href="style/card.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link rel="shortcut icon" href="https://b.radikal.ru/b17/1805/bc/c0ef2250fd37.png" type="image/png">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
+    <script src="js/jquery.tmpl.js"></script>
+    <script id="menuTemplate" type="text/x-jquery-tmpl"> 
+        <div class="menu"> 
+            <a class="menu_logoWrapper" href="../index.html">
+            <img class="menu_logo" src="https://a.radikal.ru/a09/1805/bc/f1f4fab40a9e.png"></a>
+        
+            <div class="menu_leftPart_wrapper">
+                <div class="menu_leftPart">
+                    <a class="leftPart_boardButton">Доски</a>
+                    <div class="inputWrapper">
+                        <input class="leftPart_input" type="text">
+                        <span class="leftPart_search_img">
+                            <img src="image/Search_64px.png" alt="search">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="menu_rightPart_wrapper">
+                <div class="menu_rightPart">
+                    <a class="rightPart_userLink" href="#">.<img class="rightPart_img" src="image/Plus Math_52px.png"></a>
+                    <a class="rightPart_userLink" href="#">.<img class="rightPart_img" src="image/Info_48px.png"></a>
+                    <a class="rightPart_userLink" href="#">.<img class="rightPart_img" src="image/Notification_48px.png"></a>
+                    <a class="rightPart_userLink_name" href="#">
+                        {{if username != ''}}
+                            ${username.slice(0,2).toUpperCase()}
+                        {{else}}
+                            RM
+                        {{/if}}
+                    </a>
+                </div>
+            </div>
+        </div>
+   
+        <div class="content">
+            <div class="stage1">
+                <p class="stage1_text">Добавить список...</p>
+            </div>
+       
+            <div class="stage2">
+                <input class="stage2_textinput" type="text" value="Добавить список...">
+                <input class="stage2_button" type="button" value="Сохранить">
+            </div>
+        </div>
+    </script>
+    <script id="cardTemplate" type="text/x-jquery-tmpl"> 
+        <div class="stage3">
+                <p class="stage3_header">
+                    {{if cardname != ''}} 
+                        ${cardname}
+                    {{/if}}
+                </p>
+                <div class="stage3_stageCard_text">
+                    <span>
+                        {{each info}}
+                            ${cardtask}
+                        {{/each}}
+                    </span>
+                </div>
+                <textarea class="stage3_textarea" style="display: none;"></textarea>
+                <input class="stage3_button" value="Добавить" onclick="addCard(event)" style="display: none;" type="button">
+                <p class="stage3_addCard" onclick="addCardMenu(event)" style="">Добавить карточку...</p>
+                <p class="stage3_menu_openButton" onclick="openMenu(event)">...</p>
+            </div>
+    </script>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="js/model.js"></script>
+    <script src="js/view.js"></script>
+    <script src="js/controller.js"></script>
+    <script src="js/router.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

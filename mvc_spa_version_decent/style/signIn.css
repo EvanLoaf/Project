@@ -1,0 +1,184 @@
+@font-face{font-family:jaf-facitweb;src:url(https://use.typekit.net/af/da05cc/0000000000000000000132a8/27/l?subset_id=1&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/da05cc/0000000000000000000132a8/27/d?subset_id=1&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/da05cc/0000000000000000000132a8/27/a?subset_id=1&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}
+
+@font-face{font-family:jaf-facitweb;src:url(https://use.typekit.net/af/f3d705/0000000000000000000132a9/27/l?subset_id=1&fvd=i3&v=3) format("woff2"),url(https://use.typekit.net/af/f3d705/0000000000000000000132a9/27/d?subset_id=1&fvd=i3&v=3) format("woff"),url(https://use.typekit.net/af/f3d705/0000000000000000000132a9/27/a?subset_id=1&fvd=i3&v=3) format("opentype");font-weight:300;font-style:italic;}
+
+@font-face{font-family:jaf-facitweb;src:url(https://use.typekit.net/af/a7e17b/0000000000000000000132ad/27/l?subset_id=1&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/a7e17b/0000000000000000000132ad/27/d?subset_id=1&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/a7e17b/0000000000000000000132ad/27/a?subset_id=1&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}
+
+@font-face{font-family:jaf-facitweb;src:url(https://use.typekit.net/af/493ea8/0000000000000000000132ae/27/l?subset_id=1&fvd=i7&v=3) format("woff2"),url(https://use.typekit.net/af/493ea8/0000000000000000000132ae/27/d?subset_id=1&fvd=i7&v=3) format("woff"),url(https://use.typekit.net/af/493ea8/0000000000000000000132ae/27/a?subset_id=1&fvd=i7&v=3) format("opentype");font-weight:700;font-style:italic;}
+
+html {
+    min-width: 300px;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+}
+
+.signin-form,
+.signin-form h1,
+.signin-form span,
+.signin-form input {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+}
+
+.signin-form {
+    margin: 100px auto;
+    position: relative;
+    width: 465px;
+    padding: 15px 25px 0 25px;
+    cursor: default;
+    font-family: "jaf-facitweb", "Helvetica Neue", Arial, sans-serif;
+    font-size: 20px;
+}
+
+.signin-form h1 {
+    font-family: "jaf-facitweb", "Helvetica Neue", Arial, sans-serif;
+    line-height: 48px;
+    font-size: 38px;
+    font-weight: 700;
+    color: rgb(51, 51, 51)
+}
+
+.signin-form p, .signin-form a {
+    font-size: 20px;
+    font-weight: normal;
+    font-family: "jaf-facitweb", "Helvetica Neue", Arial, sans-serif;
+    margin: 0 0 30px;
+    color: #2d8ec5;
+}
+
+.signin-form input[type=text],
+.signin-form input[type=password]{
+    line-height: 14px;
+    margin: 10px 0;
+    border: 1px solid #cdd2d4;
+    border-radius: 4px;
+    text-shadow: 0px 1px 1px rgba(255,255,255, .2);
+    height: 49.6px;
+    width: 100%;
+    max-width: 433px;
+    color: initial;
+    font-size: 20px;
+    background: #EDEFF0;
+    font-family: "jaf-facitweb", "Helvetica Neue", Arial, sans-serif;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-bottom: 24px;
+}
+
+.signin-form input[type=submit] {
+    margin-top: 10px;
+}
+
+.signin-form label{
+    color: rgb(77, 77, 77);
+    font-size: 20px;
+    display: block;
+}
+
+.footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 5px;
+    margin-top: 160px;
+}
+
+.footerLogo{
+    font-family: "jaf-facitweb", "Helvetica Neue", Arial, sans-serif;
+    display: flex;
+    color: #999;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.footerLink{
+    font-family: "jaf-facitweb", "Helvetica Neue", Arial, sans-serif;
+    color: #999;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.footerLink:hover{
+    color: #333;
+}
+
+.button{
+    margin: 0 5px;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: 3px;
+    font-family: "jaf-facitweb", "Helvetica Neue", Arial, sans-serif;
+    font-weight: bold;
+    width: 100%;
+    max-width: 565px;
+    height: 52px;
+    background: #61bd50;
+    color: #fff;
+    box-shadow: 0px 2px 0px 0px #36751a;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.button[disabled] {
+    background: #e2e4e6;
+    box-shadow: none;
+    color: #8c8c8c;
+    cursor: default;
+    display: inline-block;
+    font-weight: bold;
+    padding: .6em 1.3em;
+    position: relative;
+    text-decoration: none;
+}
+
+.registration:not([disabled]):hover{
+    background: #5aac44;
+}
+
+.registration:not([disabled]):active{
+    background: #519839;
+}
+
+.createAccount{
+    font-family: "jaf-facitweb", "Helvetica Neue", Arial, sans-serif;
+    font-size: 18px;
+    color: rgb(153, 153, 153);
+}
+
+.userName{
+    font-family: "jaf-facitweb", "Helvetica Neue", Arial, sans-serif;
+    font-size: 20px;
+    color: rgb(153, 153, 153);
+}
+
+.error-message-login {
+    border-radius: 4px;
+    border: 1px solid #eb5a46;
+    display: inline-block;
+    padding: .5em 1em;
+    background: #eb5a46;
+    color: #fbedeb;
+    font-size: 14px;
+    font-family: "Helvetica Neue",Arial,sans-serif;
+    line-height: 1.44em;
+}
+
+#username-error, #password-error {
+    margin-bottom: .6em;
+    margin-top: -1em;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+    line-height: 1.44em;
+}

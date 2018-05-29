@@ -1,0 +1,262 @@
+/* Register Page Stylesheet */
+
+@font-face{font-family:jaf-facitweb;src:url(https://use.typekit.net/af/da05cc/0000000000000000000132a8/27/l?subset_id=1&fvd=n3&v=3) format("woff2"),url(https://use.typekit.net/af/da05cc/0000000000000000000132a8/27/d?subset_id=1&fvd=n3&v=3) format("woff"),url(https://use.typekit.net/af/da05cc/0000000000000000000132a8/27/a?subset_id=1&fvd=n3&v=3) format("opentype");font-weight:300;font-style:normal;}
+
+@font-face{font-family:jaf-facitweb;src:url(https://use.typekit.net/af/f3d705/0000000000000000000132a9/27/l?subset_id=1&fvd=i3&v=3) format("woff2"),url(https://use.typekit.net/af/f3d705/0000000000000000000132a9/27/d?subset_id=1&fvd=i3&v=3) format("woff"),url(https://use.typekit.net/af/f3d705/0000000000000000000132a9/27/a?subset_id=1&fvd=i3&v=3) format("opentype");font-weight:300;font-style:italic;}
+
+@font-face{font-family:jaf-facitweb;src:url(https://use.typekit.net/af/a7e17b/0000000000000000000132ad/27/l?subset_id=1&fvd=n7&v=3) format("woff2"),url(https://use.typekit.net/af/a7e17b/0000000000000000000132ad/27/d?subset_id=1&fvd=n7&v=3) format("woff"),url(https://use.typekit.net/af/a7e17b/0000000000000000000132ad/27/a?subset_id=1&fvd=n7&v=3) format("opentype");font-weight:700;font-style:normal;}
+
+@font-face{font-family:jaf-facitweb;src:url(https://use.typekit.net/af/493ea8/0000000000000000000132ae/27/l?subset_id=1&fvd=i7&v=3) format("woff2"),url(https://use.typekit.net/af/493ea8/0000000000000000000132ae/27/d?subset_id=1&fvd=i7&v=3) format("woff"),url(https://use.typekit.net/af/493ea8/0000000000000000000132ae/27/a?subset_id=1&fvd=i7&v=3) format("opentype");font-weight:700;font-style:italic;}
+
+html {
+    min-width: 300px;
+}
+
+html .section-register, html .footer-register {
+    font-family: "jaf-facitweb", "Helvetica Neue", Arial, sans-serif;
+    color: #4d4d4d;
+    font-size: 16px;
+    line-height: 1.44em;
+    font-weight: 300;
+}
+
+body {
+    margin: 0;
+}
+
+.quick-switch h1 {
+    font-size: 2em;
+    line-height: 1.2em;
+    margin: .67em 0;
+}
+
+.error-message {
+    border-radius: 4px;
+    background: #f5d3ce;
+    border: 1px solid #eb5a46;
+    display: inline-block;
+    padding: .5em 1em;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.quick-switch .error-message {
+    background: #eb5a46;
+    color: #fbedeb;
+    font-size: 14px;
+    font-family: "Helvetica Neue",Arial,sans-serif;
+}
+
+#email-error, #name-error, #password-error {
+    margin-bottom: .6em;
+    margin-top: -1em;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 400px;
+}
+
+/*************** Include normalize.css in package.json ********************/
+
+/************** Section *************/
+
+.section-register {
+    padding: 0em 1em;
+    word-wrap: break-word;
+}
+
+.section-wrapper {
+    max-width: 540px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.quick-switch {
+    margin: 0 auto;
+    max-width: 465px;
+}
+
+.quick-switch h1 {
+    margin-top: 0;
+    height: 100%;
+    color: #333;
+    font-size: 38px;
+    line-height: 48px;
+    margin-bottom: 0;
+}
+
+.sign-in-account {
+    font-size: 18px;
+}
+
+.quick-switch a {
+    font-size: 18px;
+    color: #298fca;
+}
+
+.quick-switch a:visited {
+    color: #298fca;
+}
+
+.sign-up-container {
+    margin-top: 1.2em;
+}
+
+.sign-up-container label {
+    display: block;
+    margin: 0 0 .4em;
+}
+
+.sign-up-container input {
+    background: #edeff0;
+    border-radius: 4px;
+    border: 1px solid #cdd2d4;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: .5em;
+    max-width: 400px;
+    width: 100%;
+    display: block;
+    margin: 0 0 1.2em;
+    line-height: normal;
+    font-family: inherit;
+    font-size: 100%;
+}
+
+.sign-up-container input:focus {
+    border-color: #a5acb0;
+    outline: none;
+    box-shadow: 0 0 6px #cdd2d4;
+}
+
+.sign-up-container input:hover {
+    border-color: #b6bbbf;
+}
+
+.quick-switch input {
+    max-width: 465px;
+    width: 100%;
+}
+
+.quick-switch #signup {
+    margin-bottom: 1.2em;
+    
+}
+
+.button {
+    padding: .6em 1.3em;
+    border: 0;
+    font-weight: bold;
+}
+
+.button[disabled] {
+    background: #e2e4e6;
+    box-shadow: none;
+    color: #8c8c8c;
+    cursor: default;
+    display: inline-block;
+    font-weight: bold;
+    padding: .6em 1.3em;
+    position: relative;
+    text-decoration: none;
+}
+
+.quick-switch .button-green:not([disabled]) {
+    background: #61bd4f;
+    box-shadow: 0 2px 0 #3f6f21;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.quick-switch .button-green:not([disabled]):focus, .quick-switch .button-green:not([disabled]):hover {
+    background: #5aac44;
+}
+
+.quick-switch .button-green:not([disabled]):active {
+    background: #519839;
+}
+
+.quiet {
+    color: #999;
+}
+
+#app .quiet {
+    color: #999;
+}
+
+.tos {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.tos a {
+    font-size: 14px;
+}
+
+
+
+/************** Footer ***************/
+
+.footer-register {
+    font-size: .8em;
+    margin: 4em 1em;
+    text-align: center;
+}
+
+.footer-register ul {
+    list-style: none;
+    margin: .5em 0 0;
+    padding: 0;
+}
+
+.footer-register li {
+    display: inline-block;
+    margin: 0 .4em;
+    text-align: -webkit-match-parent;
+}
+
+.quiet li a {
+    color: #999;
+}
+
+.logo-small {
+    width: 100px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 1px;
+    border: 0;
+}
+
+
+
+/************* @ Media @ **************/
+
+@media only screen and (min-width: 650px) {
+    .section-register {
+        padding: 2em 1em;
+    }
+}
+
+@media only screen and (min-width: 900px) {
+    .section-register {
+        padding: 4em 1em;
+    }
+
+    html .section-wrapper {
+        font-size: 20px;
+    }
+
+    .section-wrapper {
+        max-width: 890px;
+    }
+
+    .signup-form-layout {
+        max-width: 585px;
+        margin: 0 auto;
+    }
+}

@@ -1,21 +1,21 @@
 
 $(document).ready(function () {
 
-    var wrapper = $("<div></div>")
-        .addClass('wrapper');
+    var wrapperMain = $("<div></div>")
+        .addClass('wrapperMain');
 
     var header = $("<div></div>")
         .addClass('header')
-        .append("<img class= 'logo' src='https://a.radikal.ru/a09/1805/bc/f1f4fab40a9e.png'/>")
-        .append("<a href= 'html/signIn.html' class= 'button enter'>Войти</a>")
-        .append("<a href= 'html/register.html' class= 'button registration'>Зарегистрироваться</a>");
+        .append("<img class= 'logoMain' src='https://a.radikal.ru/a09/1805/bc/f1f4fab40a9e.png'/>")
+        .append("<a href= 'html/signIn.html' class= 'buttonMain enter'>Войти</a>")
+        .append("<a href= 'html/register.html' class= 'buttonMain registrationMainMain'>Зарегистрироваться</a>");
 
     var firstBlock = $("<div></div>")
         .addClass('fisrtBlock')
         .append("<img src='https://c.radikal.ru/c34/1805/df/d11db1ba0885.png' alt='blueLogo' class='blueLogo'>")
         .append("<h1 class='h1'>REMIND - это бесплатный, гибкий и наглядный способ организовать что угодно с кем угодно.</h1>")
         .append("<p class='grayText'>Выбросьте длинные цепочки электронных писем, устаревшие таблицы, не такие уж и клейкие стикеры и неуклюжие программы для управления проектами. Remind помогает увидеть все детали проекта с первого взгляда. </p>")
-        .append("<a href= 'html/register.html' class= 'button registration'>Зарегистрироваться это бесплатно</a>")
+        .append("<a href= 'html/register.html' class= 'buttonMain registrationMainMain'>Зарегистрироваться это бесплатно</a>")
         .append("<a href='html/signIn.html' class='grayLink'>Войти...</a>");
 
     var secondBlock = $("<div></div>")
@@ -33,10 +33,10 @@ $(document).ready(function () {
     var fourthBlock = $("<div></div>")
         .addClass("fourthBlock")
         .append("<p class= 'whiteText'>Выбросьте стикеры, таблицы, почту и неуклюжие программы для управления проектами и станьте одним из миллионов людей, влюбившихся в Remind. Вы можете добавить сколько угодно много досок и людей в своем бесплатном аккаунте.</p>")
-        .append("<a href= 'html/register.html' class= 'button registration'>Зарегистрироваться это бесплатно</a>");
+        .append("<a href= 'html/register.html' class= 'buttonMain registrationMainMain'>Зарегистрироваться это бесплатно</a>");
 
     var footer = $("<div></div>")
-        .addClass("footer")
+        .addClass("footerMain")
         .append("<a href = 'https://trello.com/tour' class = 'footerLink'>Тур</a>")
         .append("<a href = 'https://trello.com/pricing' class = 'footerLink'>Цены</a>")
         .append("<a href = 'https://trello.com/platforms' class = 'footerLink'>Приложения</a>")
@@ -53,13 +53,13 @@ $(document).ready(function () {
         .append("<img src='https://a.radikal.ru/a09/1805/bc/f1f4fab40a9e.png' width='100'> ")
         .append("&nbsp;© 2018. Все права защищены.");
 
-    $('body').append(wrapper);
-    $(wrapper).append(header);
-    $(wrapper).append(firstBlock);
-    $(wrapper).append(secondBlock);
-    $(wrapper).append(thirdBlock);
-    $(wrapper).append(fourthBlock);
-    $(wrapper).append(footer);
-    $(wrapper).append(footerLogo);
+    $('body').append(wrapperMain);
+    $(wrapperMain).append(header);
+    $(wrapperMain).append(firstBlock);
+    $(wrapperMain).append(secondBlock);
+    $(wrapperMain).append(thirdBlock);
+    $(wrapperMain).append(fourthBlock);
+    $(wrapperMain).append(footer);
+    $(wrapperMain).append(footerLogo);
 
 });
